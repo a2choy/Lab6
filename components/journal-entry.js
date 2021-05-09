@@ -71,8 +71,16 @@ class JournalEntry extends HTMLElement {
     /* 
      * TODO: set the entry title, date, and content fields in this component
      */
-    
+
     // CODE GOES HERE
+    let temp = document.getElementsByTagName("template")[0];
+    let clone = temp.content.cloneNode(true);
+    let title = clone.querySelector("h2");
+    title.textContent = entry.title;
+    let cont = clone.querySelectorAll("p");
+    cont[0].textContent = entry.date;
+    cont[1].textContent = entry.content;
+    
 
     if (entry.image) {
       let entryImage;
@@ -85,7 +93,9 @@ class JournalEntry extends HTMLElement {
 
       // CODE GOES HERE vvv
 
-
+      entryImage = clone.querySelector("img");
+      entryImage.src = entry.image.src;
+      entryImage.alt = entry.image.alt;
 
 
 
@@ -94,7 +104,7 @@ class JournalEntry extends HTMLElement {
       /* ------------- do not edit this code, it is for your debugging purposes ------------- */
       try {
         window.logCheckpoint('"entryImage"', imgExample, entryImage);
-      } catch(err) {
+      } catch (err) {
         console.log('variable name changed: ', err);
       }
       /* ------------- do not edit this code, it is for your debugging purposes ------------- */
@@ -112,32 +122,32 @@ class JournalEntry extends HTMLElement {
       // CODE GOES HERE vvv
 
 
-
-
-
-
+      entryAudio = clone.querySelector("audio");
+      entryAudio.src = entry.audio;
+      
       // CODE GOES HERE ^^^
-      
 
-      
+
+
       /* ------------- do not edit this code, it is for your debugging purposes ------------- */
       try {
         window.logCheckpoint('"entryAudio"', exampleAudio, entryAudio);
-      } catch(err) {
+      } catch (err) {
         console.log('variable name changed: ', err);
       }
       /* ------------- do not edit this code, it is for your debugging purposes ------------- */
 
-    }
+    } 
     this.setAttribute('entry', entry);
 
     /* ------------- do not edit this code, it is for your debugging purposes ------------- */
     try {
       window.logCheckpoint('"entry"', exampleEntry, entry);
-    } catch(err) {
+    } catch (err) {
       console.log('variable name changed: ', err);
     }
     /* ------------- do not edit this code, it is for your debugging purposes ------------- */
+    document.body.appendChild(clone);
   }
 
 }
@@ -146,7 +156,7 @@ class JournalEntry extends HTMLElement {
  * Define a custom element for the JournalEntry web component, 
  * where 'journal-entry' is the string that represents this element.
  * https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements
- */ 
+ */
 customElements.define('journal-entry', JournalEntry);
 
 /**
